@@ -1,0 +1,11 @@
+# Logs
+*.log
+
+# macOS system files
+.DS_Store
+
+# Node modules
+node_modules/
+
+# Temp folders (any directory named 'temp')
+temp/
