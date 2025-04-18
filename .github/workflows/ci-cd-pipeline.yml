@@ -28,3 +28,4 @@ jobs:
           context: .
           push: true
           tags: anuanusingh230488/demo-app-typescript-tailwind:latest
+          platforms: linux/amd64,linux/arm64
