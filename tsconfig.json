@@ -1,19 +1,31 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["dom", "es6"],
+    "outDir": "./build", // Output directory for compiled JS files
+    "rootDir": "./src", // The root directory of your source files
+    "target": "es6", // Target ECMAScript version
+    "lib": [
+      "dom",
+      "es6"
+    ], // Libraries to include during compilation
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "commonjs", // Module system to use
+    "moduleResolution": "node", // Resolving modules in Node.js style
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "types": ["@testing-library/jest-dom", "jest", "node"]
+    "noEmit": false, // Ensure that emitted JS files are generated
+    "jsx": "react-jsx", // JSX transformation for React
+    "types": [
+      "@testing-library/jest-dom",
+      "jest",
+      "node"
+    ]
   },
-  "include": ["src"]
+  "include": [
+    "src/**/*.ts", // Include all TypeScript files
+    "src/**/*.tsx" // Include all TypeScript React files
+  ]
 }

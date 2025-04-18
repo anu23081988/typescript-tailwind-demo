@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+# Trigger on push or pull request to the master branch
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+        # Checkout code from repository
+        - name: Checkout Code
+          uses: actions/checkout@v2
+
+        # Set up Node.js environment
+        - name: Setup Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: '20'
+
+        # Install dependencies
+        - name: Install dependencies
+          run: |
+            npm install
+
+        # # Run tests (optional but recommended)
+        # - name: Run Tests
+        #   run: |
+        #     npm run test -- --coverage
+
+        # Build the project
+        - name: Build the project
+          run: |
+            npm run build
+
+        # Deploy to server
+        - name: Deploy to Server
+          run: |
+            scp -r ./build user@your-server:/path/to/your/project
+            ssh user@your-server 'pm2 restart your-app-name'
