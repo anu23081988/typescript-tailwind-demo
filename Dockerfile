@@ -1,25 +1,26 @@
 # Stage 1: Build the React app
-FROM node:20-alpine AS build
+FROM node:20-alpine as builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install
 
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve the app with Nginx
-FROM nginx:stable-alpine
+# Stage 2: Run app with serve (simple static server)
+FROM node:20-alpine
 
-# Remove the default Nginx page
-RUN rm -rf /usr/share/nginx/html/*
+WORKDIR /app
 
-# Copy the React build from the first stage to Nginx
-COPY --from=build /app/build /usr/share/nginx/html
+# Install 'serve' to run the production build
+RUN npm install -g serve
 
-# Expose port 80
-EXPOSE 80
+# Copy build folder from previous stage
+COPY --from=builder /app/build ./build
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 3000
+
+# Serve the build folder
+CMD ["serve", "-s", "build", "-l", "3000"]
